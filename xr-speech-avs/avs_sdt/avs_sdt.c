@@ -45,7 +45,7 @@ uint8_t audio_buffer[3840];
 
 static bool     avs_sdt_object_is_valid(avs_sdt_obj_t *obj);
 
-static void avs_sdt_handler_session_begin(void *data, const uuid_t uuid, xrsr_src_t src, uint32_t dst_index, xrsr_keyword_detector_result_t *detector_result, xrsr_session_configuration_t *configuration, rdkx_timestamp_t *timestamp);
+static void avs_sdt_handler_session_begin(void *data, const uuid_t uuid, xrsr_src_t src, uint32_t dst_index, xrsr_keyword_detector_result_t *detector_result, xrsr_session_config_out_t *config_out, xrsr_session_config_in_t *config_in, rdkx_timestamp_t *timestamp, const char *transcription_in);
 static void avs_sdt_handler_session_end(void *data, const uuid_t uuid, xrsr_session_stats_t *stats, rdkx_timestamp_t *timestamp);
 static void avs_sdt_handler_stream_begin(void *data, const uuid_t uuid, xrsr_src_t src, rdkx_timestamp_t *timestamp);
 static void avs_sdt_handler_stream_kwd(void *data, const uuid_t uuid, rdkx_timestamp_t *timestamp);
@@ -135,7 +135,7 @@ void avs_sdt_destroy(avs_sdt_object_t object) {
    AVS_DeInitialize();
 }
 
-void avs_sdt_handler_session_begin(void *data, const uuid_t uuid, xrsr_src_t src, uint32_t dst_index, xrsr_keyword_detector_result_t *detector_result, xrsr_session_configuration_t *configuration, rdkx_timestamp_t *timestamp) {
+void avs_sdt_handler_session_begin(void *data, const uuid_t uuid, xrsr_src_t src, uint32_t dst_index, xrsr_keyword_detector_result_t *detector_result, xrsr_session_config_out_t *config_out, xrsr_session_config_in_t *config_in, rdkx_timestamp_t *timestamp, const char *transcription_in) {
 
    XLOGD_DEBUG(" Begin avs sdt session .....");
 
@@ -163,7 +163,7 @@ void avs_sdt_handler_session_begin(void *data, const uuid_t uuid, xrsr_src_t src
    stream_params.push_to_talk                       = false;
 
    if(obj->handlers.session_begin != NULL) {
-      (*obj->handlers.session_begin)(uuid, src, dst_index, configuration, &stream_params, timestamp,obj->user_data);
+      (*obj->handlers.session_begin)(uuid, src, dst_index, config_out, &stream_params, timestamp,obj->user_data);
    }
    
 

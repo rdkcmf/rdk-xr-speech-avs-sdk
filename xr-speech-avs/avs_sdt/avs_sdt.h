@@ -60,7 +60,7 @@ typedef struct {
 typedef void * avs_sdt_object_t;
 
 //sdt session begin handler
-typedef void (*avs_sdt_handler_session_begin_t)(const uuid_t uuid, xrsr_src_t src, uint32_t dst_index, xrsr_session_configuration_t *configuration, avs_sdt_stream_params_t *stream_params, rdkx_timestamp_t *timestamp, void *user_data);
+typedef void (*avs_sdt_handler_session_begin_t)(const uuid_t uuid, xrsr_src_t src, uint32_t dst_index, xrsr_session_config_out_t *configuration, avs_sdt_stream_params_t *stream_params, rdkx_timestamp_t *timestamp, void *user_data);
 
 //sdt session end handler
 typedef void (*avs_sdt_handler_session_end_t)(const uuid_t uuid, xrsr_session_stats_t *stats, rdkx_timestamp_t *timestamp, void *user_data);
