@@ -13,8 +13,8 @@
         "clientId": "amzn1.application-oa2-client.b5c5e15c183546d5afb5b8d60e3ff3ca",
         // Product ID from developer.amazon.com
         "productId": "metrologica_avs",
-        "manufacturerName": "Metrological",
-        "description": "POC purpose"
+        "manufacturerName": "RDK_Accelerator",
+        "description": "Metrological_AVS_Project"
     },
     "capabilitiesDelegate":{
         // The endpoint to connect in order to send device capabilities.
@@ -46,14 +46,6 @@
         // The database file (alerts.db) will be created by SampleApp, do not create it yourself.
         // The database file should only be used for alerts (don't use it for other components of SDK)
         "databaseFilePath":"/root/AVS/db/alerts.db"
-    },
-    "lwaAuthorization":{
-        "databaseFilePath":"/root/AVS/db/lwa.db"
-    },
-    "speakerManagerCapabilityAgent":{
-        "defaultSpeakerVolume":40,
-        "defaultAlertsVolume":40,
-        "restoreMuteState":true
     },
     "deviceSettings":{
         // Path to Device Settings database file. e.g. /home/ubuntu/Build/deviceSettings.db
@@ -98,7 +90,7 @@
     },
     "sampleApp": {
         // To specify if the SampleApp supports display cards.
-        "displayCardsSupported":false
+        "displayCardsSupported":true
         // The firmware version of the device to send in SoftwareInfo event.
         // Note: The firmware version should be a positive 32-bit integer in the range [1-2147483647].
         // e.g. "firmwareVersion": 123
