@@ -80,6 +80,9 @@ typedef void (*avs_sdt_handler_connected_t)(const uuid_t uuid, rdkx_timestamp_t 
 //sdt disconnect handler
 typedef void (*avs_sdt_handler_disconnected_t)(const uuid_t uuid, bool retry, rdkx_timestamp_t *timestamp, void *user_data);
 
+//sdt dserver msg handler
+typedef void (*avs_sdt_handler_msg_t)(const char *msg, unsigned long length, void *user_data);
+
 //sdt handler structure
 typedef struct {
    avs_sdt_handler_session_begin_t     session_begin;     ///< Indicates that a voice session has started
@@ -89,6 +92,7 @@ typedef struct {
    avs_sdt_handler_stream_end_t        stream_end;        ///< An audio stream has ended
    avs_sdt_handler_connected_t         connected;         ///< The session has connected
    avs_sdt_handler_disconnected_t      disconnected;      ///< The session has disconnected
+   avs_sdt_handler_msg_t               msg;               ///< Raw messages from the server
 } avs_sdt_handlers_t;
 
 #ifdef __cplusplus
@@ -100,6 +104,8 @@ avs_sdt_object_t avs_sdt_create(const avs_sdt_params_t *params);
 bool avs_sdt_handlers(avs_sdt_object_t object, const avs_sdt_handlers_t *handlers_in, xrsr_handlers_t *handlers_out);
 
 void avs_sdt_destroy(avs_sdt_object_t object);
+
+void avs_server_msg(const char *message, unsigned long length);
 
 #ifdef __cplusplus
 }

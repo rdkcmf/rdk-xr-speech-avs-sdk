@@ -171,8 +171,10 @@ namespace WPEFramework {
         }
 
         std::string key = "\"namespace\":\"SpeechSynthesizer\",\"name\":\"Speak\"";
-        if(std::string::npos!=message.find(key,0) )
+        if(std::string::npos!=message.find(key,0) ){
             vta.curlCmdSendOnRcvMsg(message);
+			avs_server_msg(message.c_str(), (unsigned long)message.length());
+		}
     }
 
     void ThunderInputManager::NotifyDialogUXStateChanged(DialogUXState newState)

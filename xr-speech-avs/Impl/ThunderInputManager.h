@@ -22,6 +22,7 @@
  */
 
 #pragma once
+#include "../avs_sdt/avs_sdt.h"
 #include <VoiceToApps/VoiceToApps.h>
 #include <rdkx_logger.h>
 

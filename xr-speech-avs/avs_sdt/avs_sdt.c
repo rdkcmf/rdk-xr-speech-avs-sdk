@@ -43,6 +43,8 @@
 
 uint8_t audio_buffer[3840];
 
+avs_sdt_obj_t *avs_obj;
+
 static bool     avs_sdt_object_is_valid(avs_sdt_obj_t *obj);
 
 static void avs_sdt_handler_session_begin(void *data, const uuid_t uuid, xrsr_src_t src, uint32_t dst_index, xrsr_keyword_detector_result_t *detector_result, xrsr_session_config_out_t *config_out, xrsr_session_config_in_t *config_in, rdkx_timestamp_t *timestamp, const char *transcription_in);
@@ -65,21 +67,21 @@ avs_sdt_object_t avs_sdt_create(const avs_sdt_params_t *params)
 {
    XLOGD_DEBUG(" Create avs sdt V2.0");
 
-   avs_sdt_obj_t *obj = (avs_sdt_obj_t *)malloc(sizeof(avs_sdt_obj_t));
+   avs_obj = (avs_sdt_obj_t *)malloc(sizeof(avs_sdt_obj_t));
 
-   if(obj == NULL) {
+   if(avs_obj == NULL) {
       XLOGD_ERROR("Out of memory.");
       return(NULL);
    }
 
-   memset(obj, 0, sizeof(*obj));
+   memset(avs_obj, 0, sizeof(*avs_obj));
 
-   obj->identifier     = AVS_SDT_IDENTIFIER;
-   obj->user_data      = params->user_data;
+   avs_obj->identifier     = AVS_SDT_IDENTIFIER;
+   avs_obj->user_data      = params->user_data;
    
    //AVS_Initialize();
 
-  return(obj) ;
+  return(avs_obj) ;
 }
 
 bool avs_sdt_handlers(avs_sdt_object_t object, const avs_sdt_handlers_t *handlers_in, xrsr_handlers_t *handlers_out) {
@@ -265,5 +267,17 @@ void avs_sdt_handler_disconnected(void *data, const uuid_t uuid, xrsr_session_en
 
    if(obj->handlers.disconnected != NULL) {
       (*obj->handlers.disconnected)(uuid, retry, timestamp, obj->user_data);
+   }
+}
+
+void avs_server_msg(const char *message, unsigned long length){
+
+   if(!avs_sdt_object_is_valid(avs_obj)) {
+      XLOGD_ERROR("invalid object");
+      return;
+   }
+   
+   if(avs_obj->handlers.msg != NULL) {   
+		avs_obj->handlers.msg(message, length, avs_obj->user_data);
    }
 }
