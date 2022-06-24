@@ -24,6 +24,7 @@
 #pragma once
 #include "../avs_sdt/avs_sdt.h"
 #include <VoiceToApps/VoiceToApps.h>
+#include <VoiceToApps/VideoSkillInterface.h>
 #include <rdkx_logger.h>
 
 #include <AVS/SampleApp/InteractionManager.h>

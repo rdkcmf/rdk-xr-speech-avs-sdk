@@ -53,6 +53,7 @@ namespace WPEFramework {
              {
                      XLOGD_DEBUG("Parsing VoiceToApps LEDs...");
                      m_vtaFlag = vta.ioParse();
+		      set_vsk_msg_handler(&avs_server_msg);
                  }
                  
  #endif
