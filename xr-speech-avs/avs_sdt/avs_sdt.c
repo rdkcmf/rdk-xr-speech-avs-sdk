@@ -65,7 +65,7 @@ bool avs_sdt_object_is_valid(avs_sdt_obj_t *obj) {
 
 avs_sdt_object_t avs_sdt_create(const avs_sdt_params_t *params)
 {
-   XLOGD_DEBUG(" Create avs sdt V2.0");
+   XLOGD_DEBUG(" Create avs sdt");
 
    avs_obj = (avs_sdt_obj_t *)malloc(sizeof(avs_sdt_obj_t));
 
@@ -77,6 +77,7 @@ avs_sdt_object_t avs_sdt_create(const avs_sdt_params_t *params)
    memset(avs_obj, 0, sizeof(*avs_obj));
 
    avs_obj->identifier     = AVS_SDT_IDENTIFIER;
+   avs_obj->mask_pii       = params->mask_pii;
    avs_obj->user_data      = params->user_data;
    
    //AVS_Initialize();
@@ -120,6 +121,15 @@ int avs_recv_audiodata(unsigned char* data, uint32_t size)
   Voice_Data(0,audio_buffer,length);
 }
 
+bool avs_sdt_update_mask_pii(avs_sdt_object_t object, bool enable) {
+   avs_sdt_obj_t *obj = (avs_sdt_obj_t *)object;
+   if(!avs_sdt_object_is_valid(obj)) {
+      XLOGD_ERROR("invalid object");
+      return(false);
+   }
+   obj->mask_pii = enable;
+   return(true);
+}
 
 void avs_sdt_destroy(avs_sdt_object_t object) {
 

@@ -35,6 +35,7 @@
 
 typedef struct {
    bool        test_flag;        ///< True if the device is used for testing only, otherwise false
+   bool        mask_pii;         ///< True if the PII must be masked from the log
    void       *user_data;        ///< User data that is passed in to all of the callbacks
 } avs_sdt_params_t;
 
@@ -106,6 +107,8 @@ bool avs_sdt_handlers(avs_sdt_object_t object, const avs_sdt_handlers_t *handler
 void avs_sdt_destroy(avs_sdt_object_t object);
 
 void avs_server_msg(const char *message, unsigned long length);
+
+bool avs_sdt_update_mask_pii(avs_sdt_object_t object, bool enable);
 
 #ifdef __cplusplus
 }

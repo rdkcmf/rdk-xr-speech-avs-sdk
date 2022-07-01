@@ -29,9 +29,10 @@
 
 typedef struct {
    uint32_t                    identifier;
-   avs_sdt_handlers_t  handlers;
+   avs_sdt_handlers_t          handlers;
    xrsr_handler_send_t         send;
    void *                      param;
+   bool                        mask_pii;
    void *                      user_data;
 } avs_sdt_obj_t;
 
